@@ -81,7 +81,17 @@
 
       // 함수를 구현하세요!
 
+      for(let num of arr){
+        if(num < min){
+          min=num;
+        } 
       
+        if(num > max){
+          max=num;
+        }
+      }
+
+      return [min,max];
     }
 
     function submit() {
