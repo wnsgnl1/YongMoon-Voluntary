@@ -86,7 +86,7 @@ const numToDetail = (num) => { // -1, 0, 1을 가위, 바위, 보자기로 변�
          : "error : " + num;
 }
 
-const start = () => { // 메인함수로, 상대방의 패를 결정하고,
+const start = (num) => { // 메인함수로, 상대방의 패를 결정하고,
     let answer = randomNumber(-1, 1);
     changeIMG(answer);
     console.log("상대방 :", numToDetail(answer))
@@ -105,7 +105,13 @@ const changeIMG = (answer) => { // randomNumber로부터 정해진 answer, 즉 �
     }
 };
 
-const randomNumber = (n, m) => { // n부터 m까지의 랜덤한 숫자를 만드는 난수 발생 함수를 만드세요! return 타입은 INT입니다!
+const randomNumber = (n, m) => { 
+        return Math.floor(Math.random()*(m - n +1)) + n;
+
+
+        
+    
+    // n부터 m까지의 랜덤한 숫자를 만드는 난수 발생 함수를 만드세요! return 타입은 INT입니다!
 	/* 
      * n에는 시작 값이 들어오고, m에는 끝 값이 들어오게 되며
      * n~m까지의 난수를 발생시키는 random 함수를 만드세요! (Tip. 2일차 JavaScript 기초 파일의 27페이지를 확인해보세요!)
@@ -113,7 +119,27 @@ const randomNumber = (n, m) => { // n부터 m까지의 랜덤한 숫자를 만�
      */
 };
 
-const judge = (answer, submit) => { // 결과를 "Draw", "Lose", "Win" 형태로 도출하여 String의 형태로 return하세요!
+const judge = (answer, submit) => { 
+    if(answer == submit){
+        return "Draw"
+    }
+    if(answer == 1 && submit == -1){
+        return "Win"
+    }else if(answer == -1 && submit == 0){
+        return "Win"
+    }else if(answer == 0 && submit == 1){
+        return "Win"
+    }
+    if(answer == 1 && submit == 0){
+        return "Lose";
+    }else if(answer == -1 && submit == 1){
+        return "Lose";
+    }else if(answer == 0 && submit == -1){
+        return "Lose";
+    }    
+
+    
+    // 결과를 "Draw", "Lose", "Win" 형태로 도출하여 String의 형태로 return하세요!
 	/* 
      * 가위 = -1, 바위 = 0, 보자기 = 1 입니다.
      * answer에는 상대편 카드로는 -1, 0, 1 중 하나의 값이 들어옵니다.
@@ -121,4 +147,5 @@ const judge = (answer, submit) => { // 결과를 "Draw", "Lose", "Win" 형태로
      * answser와 submit의 값을 비교하여 자신이 비겼는지, 졌는지, 이겼는지 판단하는 함수를 만드세요! 
      * return 타입은 문자열인 String이며, "Draw", "Lose", "Win" 중 하나로 return되게 하면 됩니다!
      */
+};
 };
