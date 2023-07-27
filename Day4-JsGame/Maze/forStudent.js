@@ -37,7 +37,12 @@ window.onload = function(){
 function enterkey() {
     if (window.event.keyCode == 13) { // enter 키의 아스키 코드 : 13, 엔터를 누르면
 	var sizeInput = document.getElementById("mazeSize").value; // 미로 사이즈, "mazeSize"라는 Id의 value값 찾기
-	    
+	if(sizeInput%2 == 0){
+		alert("Please enter an odd number.");
+	}else {
+		tc = sizeInput;
+		initialize();
+	}
 	// 여기에 채워넣어 코드를 완성하세요!
         /*
          * 미로 사이즈가 짝수면 "Please enter an odd number." 라는 경고 메시지 생성
@@ -88,6 +93,23 @@ function makeWay(xx,yy){
 function keyPush(evt){
 	
 	switch(evt.keyCode){ 
+		
+		case 37: 
+			xv =-1;
+			yv =0;
+			break;
+		case 38: 
+			yv = -1; 
+			xv = 0;
+			break;
+		case 39: 
+			xv = 1;
+			yv =0;
+			break;
+		case 40: 
+			yv = 1;
+			xv = 0;
+			break;
 
 		// 여기에 채워넣어 코드를 완성하세요!
 		/*
@@ -102,7 +124,7 @@ function keyPush(evt){
 		*/
 	}
 
-    
+
 
 	cx += xv; // here!!!
 	cy += yv; // here!!!
@@ -117,19 +139,32 @@ function keyPush(evt){
 		ctx.fillRect((cx-xv)*gs, (cy-yv)*gs, gs, gs);
 		document.getElementById("text").innerHTML = "cx: " + cx + " cy: " + cy; // element 안의 HTML이나 XML 가져옴, 웹 상에 좌표 나타내줌
 		
+		if(cx == (tc - 1) && cy == (tc - 2)){
+			alert("You Win!")
+			initialize();
+		
+		}
+
+		
         // 여기에 채워넣어 코드를 완성하세요!
         /* 
          * 현재 위치 좌표와 도착 지점의 좌표를 비교하여 도착 지점에 도달했을 때, "You Win!" 이라는 경고 메시지 생성, 게임 리셋 함수 호출
          */
 	}
-		
 }
+	
 
 // 랜덤 미로 생성 함수
 function randomMazeGenerator(){
 
     while(stack.length > 0) { 
 	    
+		if(stucked){
+			backtracking()
+		}else {
+			tracking()
+		}
+
 	    // 여기에 채워넣어 코드를 완성하세요!
 	    /*
 	     * 길이 막혔을 때, 안 막혔을 때 각각 함수 호출 (어떠한 문법, 어떠한 변수, 어떠한 함수를 써야할지 잘 생각해보세요!)
@@ -141,11 +176,12 @@ function randomMazeGenerator(){
 // 길이 막히지 않았을 때의 함수, tracking : 객체 탐지, 추적
 function tracking(){
 	
+
 	// 여기에 채워넣어 코드를 완성하세요!
 	/* 
          * 0부터 3까지의 정수를 랜덤으로 생성하는 key 변수 생성 (Math.random 이용하기!, 한 줄 코드.)
          */
-	
+	key = Math.floor(Math.random() *4);
 	switch(key){
 	case 0: // left move
 		xv =- 2; yv = 0;
@@ -220,3 +256,4 @@ function blockCheck(){
 	else
 		stucked = false;
 }
+
